@@ -48,7 +48,7 @@ export default function Home() {
       </nav>
 
       {/* HERO */}
-      <section className="relative h-screen flex flex-col justify-end overflow-hidden grain">
+      <section className="relative min-h-screen flex flex-col justify-end overflow-hidden grain pt-24">
         {/* Background com foto da camisa */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black z-10" />
@@ -72,7 +72,7 @@ export default function Home() {
             </div>
           </div>
 
-          <h1 className="hero-text text-[20vw] md:text-[16vw] uppercase leading-[0.85]">
+          <h1 className="hero-text uppercase leading-[0.85]" style={{ fontSize: 'clamp(4rem, 14vw, 14rem)' }}>
             <span className="block">Camisas</span>
             <span className="block text-brasil-amarelo">do Brasil</span>
           </h1>
