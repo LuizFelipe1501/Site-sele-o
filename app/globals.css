@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-display: 'Bebas Neue', Impact, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --brasil-verde: #009C3B;
+  --brasil-amarelo: #FFDF00;
+  --brasil-azul: #002776;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  background: #000;
+  color: #fff;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--brasil-amarelo);
+  color: #000;
+}
+
+/* Marquee infinito */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Hero text gigante */
+.hero-text {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 0.85;
+  font-weight: 400;
+}
+
+/* Diagonal stripe Brasil */
+.diagonal-stripe {
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    transparent 33%,
+    var(--brasil-verde) 33%,
+    var(--brasil-verde) 44%,
+    var(--brasil-amarelo) 44%,
+    var(--brasil-amarelo) 55%,
+    var(--brasil-azul) 55%,
+    var(--brasil-azul) 66%,
+    transparent 66%,
+    transparent 100%
+  );
+}
+
+/* Grain texture */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.08;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Fade-in das camisas */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+/* Card de camisa hover */
+.shirt-card {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shirt-card:hover .shirt-img {
+  transform: scale(1.08);
+}
+.shirt-card:hover .shirt-info {
+  transform: translateY(0);
+  opacity: 1;
+}
+.shirt-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shirt-info {
+  transform: translateY(20px);
+  opacity: 0.7;
+  transition: all 0.4s ease;
+}
+
+/* Number outline */
+.number-outline {
+  -webkit-text-stroke: 1px rgba(255, 223, 0, 0.4);
+  color: transparent;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
