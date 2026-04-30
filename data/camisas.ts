@@ -25,13 +25,13 @@ export const camisas: Camisa[] = [
   },
   {
     id: 4,
-    nome: 'Away Jordan',
-    image_url: '/camisas/away-jordan-cabide.jpeg',
+    nome: 'Home Feminina',
+    image_url: '/camisas/modelo-amarela-feminino.jpeg',
   },
   {
     id: 5,
-    nome: 'Home Feminina',
-    image_url: '/camisas/modelo-amarela-feminino.jpeg',
+    nome: 'Away Jordan',
+    image_url: '/camisas/away-jordan-cabide.jpeg',
   },
 ]
 
