@@ -17,14 +17,17 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-md border-b border-white/5">
         <div className="px-6 md:px-12 py-4 flex justify-between items-center gap-4">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 shrink-0">
-            <div className="flex gap-0.5">
-              <div className="w-1.5 h-4 bg-brasil-verde" />
-              <div className="w-1.5 h-4 bg-brasil-amarelo" />
-              <div className="w-1.5 h-4 bg-brasil-azul" />
-            </div>
+          <a href="/" className="flex items-center gap-3 shrink-0">
+            <Image
+              src="/logo.png"
+              alt="CH Sports"
+              width={44}
+              height={44}
+              className="w-9 h-9 md:w-11 md:h-11 object-contain"
+              priority
+            />
             <span className="hero-text text-xl md:text-2xl uppercase tracking-tight">
-              Camisas <span className="text-brasil-amarelo">do Brasil</span>
+              CH <span className="text-brasil-amarelo">Sports</span>
             </span>
           </a>
 
@@ -67,7 +70,7 @@ export default function Home() {
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 bg-brasil-amarelo rounded-full pulse-dot" />
               <p className="text-xs md:text-sm tracking-[0.4em] uppercase text-brasil-amarelo">
-                Coleção Brasil · Disponível
+                CH Sports · Disponível
               </p>
             </div>
           </div>
@@ -285,13 +288,22 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-white/10 px-6 md:px-12 py-12">
         <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div>
-            <p className="hero-text text-3xl uppercase">
-              Camisas do <span className="text-brasil-amarelo">Brasil</span>
-            </p>
-            <p className="text-xs tracking-[0.3em] uppercase text-white/40 mt-2">
-              Coleção pessoal · {new Date().getFullYear()}
-            </p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo.png"
+              alt="CH Sports"
+              width={40}
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
+            <div>
+              <p className="hero-text text-2xl uppercase">
+                CH <span className="text-brasil-amarelo">Sports</span>
+              </p>
+              <p className="text-xs tracking-[0.3em] uppercase text-white/40 mt-1">
+                Camisas do Brasil · {new Date().getFullYear()}
+              </p>
+            </div>
           </div>
           <div className="flex flex-col md:flex-row gap-4 md:items-center">
             <a

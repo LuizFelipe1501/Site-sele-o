@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Camisas do Brasil — Loja',
-  description: 'Camisas oficiais e edições especiais da Seleção Brasileira. Compre direto pelo WhatsApp.',
+  title: 'CH Sports — Camisas do Brasil',
+  description: 'Camisas oficiais e edições especiais da Seleção Brasileira. Compre direto pelo WhatsApp com a CH Sports.',
 }
 
 export default function RootLayout({
