@@ -11,28 +11,21 @@ export const camisas: Camisa[] = [
   {
     id: 1,
     nome: 'Home Editorial',
-    image_url: '/camisas/modelo-amarela-perfil.jpeg',
-  },
-  {
-    id: 2,
-    nome: 'Home Cabide',
-    image_url: '/camisas/home-cabide.jpeg',
-  },
-  {
-    id: 3,
-    nome: 'Detalhe Escudo',
-    image_url: '/camisas/modelo-amarela-detalhe.jpeg',
+    image_url: '/camisas/yellow-hanger-front.jpg',
   },
   {
     id: 4,
     nome: 'Home Feminina',
     image_url: '/camisas/modelo-amarela-feminino.jpeg',
   },
-  {
-    id: 5,
-    nome: 'Away Jordan',
-    image_url: '/camisas/away-jordan-cabide.jpeg',
-  },
+]
+
+export const yellowShirtImages = [
+  '/camisas/yellow-hanger-front.jpg',
+  '/camisas/yellow-hanger-back.jpg',
+  '/camisas/yellow-model-back.jpg',
+  '/camisas/yellow-collar-detail.jpg',
+  '/camisas/yellow-collar-zoom.jpg',
 ]
 
 // Configuração do WhatsApp pra venda

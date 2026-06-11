@@ -1,5 +1,85 @@
-import { camisas, getWhatsappLink } from '@/data/camisas'
+'use client'
+
+import { useState } from 'react'
+import { camisas, yellowShirtImages, getWhatsappLink } from '@/data/camisas'
 import Image from 'next/image'
+
+// Componente Carrossel de Fotos
+function ProductCarousel({ images }: { images: string[] }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const prevSlide = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
+  }
+
+  const nextSlide = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
+  }
+
+  return (
+    <div className="relative w-full h-full group/carousel overflow-hidden">
+      {/* Imagens */}
+      <div className="relative w-full h-full flex transition-transform duration-500 ease-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+        {images.map((img, i) => (
+          <div key={i} className="relative w-full h-full shrink-0">
+            <Image
+              src={img}
+              alt={`Visualização da camisa amarela ${i + 1}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority={i === 0}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Setas de navegação */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white transition-all opacity-0 group-hover/carousel:opacity-100 focus:opacity-100"
+        aria-label="Foto anterior"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white transition-all opacity-0 group-hover/carousel:opacity-100 focus:opacity-100"
+        aria-label="Próxima foto"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+
+      {/* Indicadores (pontos) */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+        {images.map((_, index) => (
+          <button
+            key={index}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setCurrentIndex(index)
+            }}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              currentIndex === index
+                ? 'bg-brasil-amarelo w-6'
+                : 'bg-white/40 hover:bg-white/70'
+            }`}
+            aria-label={`Ir para foto ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
 
 // Ícone WhatsApp (SVG inline pra não depender de pacote externo)
 function WhatsappIcon({ className = '' }: { className?: string }) {
@@ -82,7 +162,7 @@ export default function Home() {
 
           <div className="mt-8 md:mt-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
             <p className="text-sm md:text-base text-white/70 max-w-md leading-relaxed">
-              Camisas oficiais e edições especiais da Seleção Brasileira. Verde-amarela autêntica, entrega rápida pra todo o Brasil.
+              Torça para o Brasil na Copa do Mundo usando CH Sports. Camisa do Brasil 1:1 Tailandesa, 100% igual a original!
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
@@ -133,85 +213,84 @@ export default function Home() {
               <p className="text-xs tracking-[0.4em] uppercase text-brasil-amarelo mb-4">
                 01 — Acervo
               </p>
-              <h2 className="hero-text text-7xl md:text-9xl uppercase leading-none">
-                A Coleção
+              <h2 className="hero-text text-5xl md:text-7xl uppercase leading-none">
+                Camisa Brasil Amarela Copa do Mundo
               </h2>
             </div>
-            <p className="text-sm text-white/60 max-w-xs">
-              {camisas.length} {camisas.length === 1 ? 'peça' : 'peças'} disponíveis · clique para comprar
+            <p className="text-sm text-white/60 max-w-xs font-semibold tracking-wider">
+              Últimas 09 peças disponíveis
             </p>
           </div>
 
           {/* Grid asymmetric editorial */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
             {camisas.map((camisa, i) => {
               const layouts = [
-                'md:col-span-7 md:row-span-2',
-                'md:col-span-5',
-                'md:col-span-5',
                 'md:col-span-7',
-                'md:col-span-6',
-                'md:col-span-6',
+                'md:col-span-5',
               ]
               const span = layouts[i % layouts.length]
-              const aspectClass = i % 6 === 0 ? 'aspect-[4/5]' : 'aspect-[3/4]'
+              const aspectClass = i === 0 ? 'aspect-[4/5]' : 'aspect-[3/4]'
+              const isCarousel = camisa.id === 1
 
               return (
                 <article
                   key={camisa.id}
-                  className={`shirt-card relative overflow-hidden bg-zinc-950 group ${span}`}
+                  className={`flex flex-col bg-zinc-950/40 rounded-2xl border border-white/5 overflow-hidden group ${span}`}
                 >
+                  {/* Container da Imagem ou Carrossel */}
                   <div className={`relative ${aspectClass} overflow-hidden bg-gradient-to-br from-zinc-900 to-black`}>
-                    <Image
-                      src={camisa.image_url}
-                      alt={camisa.nome}
-                      fill
-                      className="shirt-img object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-
-                    {/* Overlay gradiente bottom */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90" />
+                    {isCarousel ? (
+                      <ProductCarousel images={yellowShirtImages} />
+                    ) : (
+                      <Image
+                        src={camisa.image_url}
+                        alt={camisa.nome}
+                        fill
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                      />
+                    )}
 
                     {/* Número grande no canto */}
-                    <div className="absolute top-4 right-4 md:top-6 md:right-6">
+                    <div className="absolute top-4 right-4 md:top-6 md:right-6 pointer-events-none">
                       <span className="number-outline hero-text text-5xl md:text-7xl block leading-none">
                         {String(i + 1).padStart(2, '0')}
                       </span>
                     </div>
+                  </div>
 
-                    {/* Info bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 shirt-info">
-                      <div className="flex items-end justify-between gap-4 mb-4">
-                        <div>
-                          <div className="flex items-center gap-2 mb-2">
-                            <div className="w-1.5 h-1.5 bg-brasil-verde rounded-full pulse-dot" />
-                            <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-brasil-verde font-semibold">
-                              Disponível
-                            </p>
-                          </div>
-                          <h3 className="hero-text text-3xl md:text-5xl uppercase leading-none">
-                            {camisa.nome}
+                  {/* Informações abaixo da imagem */}
+                  <div className="p-6 md:p-8 flex flex-col gap-5 justify-between flex-grow">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+                      <div>
+                        {!isCarousel ? (
+                          <h3 className="hero-text text-2xl md:text-3xl uppercase tracking-wide text-white/90">
+                            {camisa.nome === 'Home Feminina' ? 'Modelo Feminino' : camisa.nome}
                           </h3>
-                        </div>
-                        <div className="flex flex-col gap-1.5 shrink-0">
-                          <div className="w-1 h-6 bg-brasil-verde" />
-                          <div className="w-1 h-6 bg-brasil-amarelo" />
-                          <div className="w-1 h-6 bg-brasil-azul" />
+                        ) : null}
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="w-1.5 h-1.5 bg-brasil-verde rounded-full pulse-dot" />
+                          <span className="text-[10px] md:text-xs tracking-[0.2em] uppercase text-brasil-verde font-semibold">
+                            Disponível
+                          </span>
                         </div>
                       </div>
-
-                      {/* CTA WhatsApp aparece no hover */}
-                      <a
-                        href={getWhatsappLink(camisa.nome)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="shirt-cta btn-whatsapp inline-flex items-center gap-2 px-4 py-2.5 text-xs tracking-[0.15em] uppercase font-bold rounded-full"
-                      >
-                        <WhatsappIcon className="w-4 h-4" />
-                        Comprar pelo WhatsApp
-                      </a>
+                      <div className="flex flex-col items-start sm:items-end">
+                        <span className="text-xs text-white/40 line-through">R$ 220,00</span>
+                        <span className="text-xl md:text-2xl font-extrabold text-brasil-amarelo">R$ 170,00</span>
+                      </div>
                     </div>
+
+                    <a
+                      href={getWhatsappLink(isCarousel ? 'Camisa Brasil Amarela Copa do Mundo' : (camisa.nome === 'Home Feminina' ? 'Modelo Feminino' : camisa.nome))}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-whatsapp flex items-center justify-center gap-2 w-full py-3.5 text-xs tracking-[0.15em] uppercase font-bold rounded-xl shadow-lg shadow-green-950/20"
+                    >
+                      <WhatsappIcon className="w-4 h-4" />
+                      Comprar pelo WhatsApp
+                    </a>
                   </div>
                 </article>
               )
