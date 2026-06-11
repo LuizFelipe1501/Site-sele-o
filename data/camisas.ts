@@ -11,7 +11,7 @@ export const camisas: Camisa[] = [
   {
     id: 1,
     nome: 'Home Editorial',
-    image_url: '/camisas/yellow-hanger-front.jpg',
+    image_url: '/camisas/yellow-model-front.jpg',
   },
   {
     id: 4,
@@ -21,9 +21,11 @@ export const camisas: Camisa[] = [
 ]
 
 export const yellowShirtImages = [
+  '/camisas/yellow-model-front.jpg',
+  '/camisas/yellow-model-back.jpg',
+  '/camisas/yellow-tag-detail.jpg',
   '/camisas/yellow-hanger-front.jpg',
   '/camisas/yellow-hanger-back.jpg',
-  '/camisas/yellow-model-back.jpg',
   '/camisas/yellow-collar-detail.jpg',
   '/camisas/yellow-collar-zoom.jpg',
 ]
